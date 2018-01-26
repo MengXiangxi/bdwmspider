@@ -5,11 +5,11 @@ import time
 
 def html_parse(html_content):
     html_len = len(html_content)
-    uid = ""
+    uname = ""
     for i in range(0, html_len):
         line_content = html_content[i].strip().decode('utf-8')
         if line_content.find("bbsid") >= 1:
-            uid = line_content[20:-7]
+            uname = line_content[20:-7]
         if line_content == "<label>性别：</label>":
             gender = html_content[i+1].strip().decode('utf-8')[:-14]
         if line_content == "<label>星座：</label>":
@@ -26,17 +26,17 @@ def html_parse(html_content):
             original = html_content[i+1].strip().decode('utf-8')[:-14]
         if line_content == "<label>最近上站时间：</label>":
             last_seen = html_content[i+1].strip().decode('utf-8')[:-14]
-    if len(uid) < 1:
+    if len(uname) < 1:
         return ""
     else:
-        return uid+","+gender+","+zodiac+","+login_num+","+post_nun+","+life+","+integral+","+original+","+last_seen+"\n"
+        return uname+","+gender+","+zodiac+","+login_num+","+post_nun+","+life+","+integral+","+original+","+last_seen+"\n"
 
 
 buffer = ""
 time_stamp = time.time()
 
 for i in range(1, 110000):
-    target_url = "http://bbs.pku.edu.cn/v2/user.php?uid="+str(i)
+    target_url = "http://bbs.pku.edu.cn/v2/user.php?uname="+str(i)
     try:
         response = request.urlopen(target_url)
     except:
