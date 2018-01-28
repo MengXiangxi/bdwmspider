@@ -9,6 +9,7 @@ https://github.com/MengXiangxi/bdwmspider
 import pycurl
 from io import BytesIO
 import time
+# import certifi # for certification problems 1/2
 
 def html_parse(uid, html_content):
     '''Pasing the html contents'''
@@ -55,6 +56,7 @@ for i in range(2601, 35000): # range to grab
     try:
         curl_buffer = BytesIO()
         c = pycurl.Curl()
+        # c.setopt(pycurl.CAINFO, certifi.where()) # for certification problems 2/2
         c.setopt(c.URL, target_url)
         c.setopt(c.WRITEDATA, curl_buffer)
         c.perform()
